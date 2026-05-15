@@ -1,0 +1,30 @@
+{
+    "incubation_period": {
+        "median_days": 18,
+        "range_days": [4, 42],
+        "short_exposure_range": [14, 32],
+        "distribution_notes": "Highly variable, typically right-skewed. Up to 42 days monitoring recommended."
+    },
+    "serial_interval": {
+        "range_days": [19, 40],
+        "other_cluster_range": [15, 24],
+        "notes": "Long serial interval reflecting extended incubation. Human-to-human transmission primarily during prodromal phase."
+    },
+    "seroprevalence": {
+        "argentina": {
+            "general_population_jujuy": 0.065,
+            "indigenous_gran_chaco": 0.171,
+            "rodent_reservoir_chubut": 0.092
+        },
+        "chile": {
+            "general_adult_ix_region": 0.0072,
+            "andean_rural": 0.0215,
+            "rodent_reservoir": [0.014, 0.095],
+            "family_contacts_of_cases": 0.019,
+            "healthcare_workers": 0.0
+        }
+    },
+    "reproduction_number": {
+        "epuyen_2018": 2.1
+    }
+}
