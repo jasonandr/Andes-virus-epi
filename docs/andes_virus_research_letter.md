@@ -50,7 +50,7 @@ Furthermore, historical serosurveys of asymptomatic close contacts have repeated
 ## Appendix A: Empirical Timeline of the MV Hondius Outbreak
 We reconstructed the empirical patient-level timeline of the outbreak using notification data from the World Health Organization. The visualization strictly adheres to reported milestones, documenting the duration of exposure on the vessel, clinical symptom onset, and dates of death for the primary and secondary clusters, highlighting the rapid clinical deterioration of the initial three cases prior to and during the initial May 2nd notification.
 
-![Empirical Timeline](/Users/jasonandrews/.gemini/antigravity/brain/26e83a96-4a63-4226-94fe-627b326b4048/artifacts/hondius_patient_timeline_1778878820.png)
+![Empirical Timeline](/Users/jasonandrews/.gemini/antigravity/brain/26e83a96-4a63-4226-94fe-627b326b4048/artifacts/hondius_patient_timeline_1778879545.png)
 **Supplementary Figure S1. Patient-Level Timeline of the MV Hondius Andes Virus Outbreak.** Gantt chart illustrating the time spent on the vessel by the 11 identified cases, ending in specific reported events (death, critical illness medevac, symptom onset, or testing).
 
 ## Appendix B: Stochastic Extinction Simulation
