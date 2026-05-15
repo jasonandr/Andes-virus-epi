@@ -41,8 +41,8 @@ def main():
     for i, patient in enumerate(patients):
         if i < 3:
             # Primary Cases
-            # Estimated to have been co-exposed in Patagonia (e.g. environmental exposure) 
-            # right before boarding the ship in Ushuaia.
+            # Estimated incubation period leading up to their onset.
+            # We do NOT plot a specific exposure marker since the exact date is unknown.
             start_date = date_departure - timedelta(days=np.random.randint(1, 4))
             incubation_days = int(np.random.normal(20.1, 1.0))
             onset_date = start_date + timedelta(days=incubation_days)
@@ -55,9 +55,6 @@ def main():
             # Draw Onset
             ax.plot(onset_date, y_pos[i], 'ko', markersize=9, markeredgecolor='white', markeredgewidth=1)
             
-            # Pre-boarding exposure marker
-            ax.plot(start_date, y_pos[i], '*', color='purple', markersize=12)
-            
             if "Deceased" in patient:
                 death_date = onset_date + timedelta(days=10 + np.random.randint(-2, 3))
                 ax.plot(death_date, y_pos[i], 'kX', markersize=11, label='Date of Death' if i==0 else "")
@@ -66,11 +63,9 @@ def main():
 
         else:
             # Secondary Cases 
-            # Exposed during Primary cohort's presymptomatic window on the ship (~April 16-20)
+            # We assume exposure occurred sometime during the primary cohort's presymptomatic window.
+            # We do NOT plot a specific exposure marker since the exact date is unknown.
             exposure_date = datetime(2026, 4, 18) + timedelta(days=np.random.randint(-2, 3))
-            
-            # Exposure marker
-            ax.plot(exposure_date, y_pos[i], 'X', color='darkred', markersize=10)
             
             if "Asymptomatic" in patient:
                 # Still incubating or subclinical
@@ -101,8 +96,8 @@ def main():
     
     for i, (date, label) in enumerate(milestones):
         ax.axvline(date, color='steelblue', linestyle='--', alpha=0.6, zorder=0)
-        # Stagger the text to prevent overlapping
-        y_text_pos = -0.6 if i % 2 == 0 else -1.8
+        # Stagger the text significantly higher to avoid Patient 1 at y=0
+        y_text_pos = -1.5 if i % 2 == 0 else -2.5
         ax.text(date, y_text_pos, label, rotation=0, ha='center', va='top', 
                 fontsize=11, fontweight='bold', color='steelblue', 
                 bbox=dict(facecolor='white', alpha=0.9, edgecolor='none', pad=2))
@@ -118,7 +113,7 @@ def main():
     
     ax.invert_yaxis()  # Put Primary Case 1 at the top
     ax.set_xlim(datetime(2026, 3, 26), datetime(2026, 5, 25))
-    ax.set_ylim(len(patients), -3.0) # Extra space at top for milestones
+    ax.set_ylim(len(patients) + 0.5, -4.0) # Extra space at top for staggered milestones
     
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -133,13 +128,10 @@ def main():
         patches.Rectangle((0,0),1,1, facecolor=c_incubation, edgecolor='gray'),
         patches.Rectangle((0,0),1,1, facecolor=c_presymp, edgecolor='darkred'),
         Line2D([0], [0], marker='o', color='w', markerfacecolor='black', markersize=10),
-        Line2D([0], [0], marker='*', color='w', markerfacecolor='purple', markersize=13),
-        Line2D([0], [0], marker='X', color='w', markerfacecolor='darkred', markersize=10),
         Line2D([0], [0], marker='X', color='w', markerfacecolor='black', markersize=11)
     ]
-    ax.legend(custom_lines, ['Silent Incubation', 'Presymptomatic Shedding', 'Symptom Onset', 
-                             'Pre-boarding Environmental Exposure', 'Secondary Exposure on Ship', 'Date of Death'], 
-              loc='lower left', bbox_to_anchor=(0.0, -0.15), ncol=3, fontsize=11)
+    ax.legend(custom_lines, ['Estimated Incubation', 'Presymptomatic Shedding', 'Symptom Onset', 'Date of Death'], 
+              loc='lower left', bbox_to_anchor=(0.0, -0.15), ncol=4, fontsize=11)
               
     plt.tight_layout()
     
