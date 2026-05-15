@@ -35,10 +35,15 @@ def main():
     c_presymp = 'lightcoral'
     c_onset = 'black'
     
+    # We set a fixed seed to ensure the visualization remains consistent across generations
+    np.random.seed(42)
+    
     for i, patient in enumerate(patients):
         if i < 3:
-            # Primary Cases (Exposed around Departure)
-            start_date = date_departure + timedelta(days=np.random.randint(0, 3))
+            # Primary Cases
+            # Estimated to have been co-exposed in Patagonia (e.g. environmental exposure) 
+            # right before boarding the ship in Ushuaia.
+            start_date = date_departure - timedelta(days=np.random.randint(1, 4))
             incubation_days = int(np.random.normal(20.1, 1.0))
             onset_date = start_date + timedelta(days=incubation_days)
             presymp_start = onset_date - timedelta(days=4)
@@ -50,6 +55,9 @@ def main():
             # Draw Onset
             ax.plot(onset_date, y_pos[i], 'ko', markersize=9, markeredgecolor='white', markeredgewidth=1)
             
+            # Pre-boarding exposure marker
+            ax.plot(start_date, y_pos[i], '*', color='purple', markersize=12)
+            
             if "Deceased" in patient:
                 death_date = onset_date + timedelta(days=10 + np.random.randint(-2, 3))
                 ax.plot(death_date, y_pos[i], 'kX', markersize=11, label='Date of Death' if i==0 else "")
@@ -57,15 +65,16 @@ def main():
                 ax.plot([onset_date, death_date], [y_pos[i], y_pos[i]], 'k-', linewidth=1, alpha=0.5)
 
         else:
-            # Secondary Cases (Exposed during Primary's presymptomatic window ~April 18-22)
-            exposure_date = datetime(2026, 4, 20) + timedelta(days=np.random.randint(-2, 3))
+            # Secondary Cases 
+            # Exposed during Primary cohort's presymptomatic window on the ship (~April 16-20)
+            exposure_date = datetime(2026, 4, 18) + timedelta(days=np.random.randint(-2, 3))
             
             # Exposure marker
             ax.plot(exposure_date, y_pos[i], 'X', color='darkred', markersize=10)
             
             if "Asymptomatic" in patient:
                 # Still incubating or subclinical
-                current_date = datetime(2026, 5, 13)
+                current_date = datetime(2026, 5, 15)
                 ax.barh(y_pos[i], (current_date - exposure_date).days, left=exposure_date, height=0.5, color=c_incubation, edgecolor='gray', alpha=0.8)
                 ax.text(current_date + timedelta(days=1), y_pos[i], "Tested Asymptomatic", va='center', fontsize=9, color='gray', style='italic')
             else:
@@ -78,7 +87,7 @@ def main():
                 # Draw Presymptomatic
                 ax.barh(y_pos[i], 4, left=presymp_start, height=0.5, color=c_presymp, edgecolor='darkred')
                 
-                # Draw Onset (if reached by mid-May)
+                # Draw Onset
                 ax.plot(onset_date, y_pos[i], 'ko', markersize=9, markeredgecolor='white', markeredgewidth=1)
 
     # Add Vertical Milestone Lines
@@ -90,18 +99,13 @@ def main():
         (datetime(2026, 5, 10), "Disembarkation\n(Tenerife)")
     ]
     
-    for date, label in milestones:
+    for i, (date, label) in enumerate(milestones):
         ax.axvline(date, color='steelblue', linestyle='--', alpha=0.6, zorder=0)
-        ax.text(date, -1.2, label, rotation=0, ha='center', va='top', 
-                fontsize=10, fontweight='bold', color='steelblue', 
-                bbox=dict(facecolor='white', alpha=0.9, edgecolor='none', pad=1))
-
-    # Standard 14-day Quarantine Line (Starting from Tenerife disembarkation for Secondary Cases)
-    quar_start = datetime(2026, 5, 10)
-    quar_end = quar_start + timedelta(days=14)
-    ax.axvspan(quar_start, quar_end, color='orange', alpha=0.1, zorder=0)
-    ax.axvline(quar_end, color='darkorange', linestyle='-', linewidth=2)
-    ax.text(quar_end + timedelta(days=1), len(patients) - 1, "Standard 14-Day\nQuarantine Ends", color='darkorange', fontweight='bold', va='top')
+        # Stagger the text to prevent overlapping
+        y_text_pos = -0.6 if i % 2 == 0 else -1.8
+        ax.text(date, y_text_pos, label, rotation=0, ha='center', va='top', 
+                fontsize=11, fontweight='bold', color='steelblue', 
+                bbox=dict(facecolor='white', alpha=0.9, edgecolor='none', pad=2))
 
     # Formatting
     ax.set_yticks(y_pos)
@@ -113,8 +117,8 @@ def main():
     plt.xticks(rotation=0, ha='center', fontsize=11)
     
     ax.invert_yaxis()  # Put Primary Case 1 at the top
-    ax.set_xlim(datetime(2026, 3, 29), datetime(2026, 5, 28))
-    ax.set_ylim(len(patients), -2.5) # Extra space at top for milestones
+    ax.set_xlim(datetime(2026, 3, 26), datetime(2026, 5, 25))
+    ax.set_ylim(len(patients), -3.0) # Extra space at top for milestones
     
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -129,11 +133,13 @@ def main():
         patches.Rectangle((0,0),1,1, facecolor=c_incubation, edgecolor='gray'),
         patches.Rectangle((0,0),1,1, facecolor=c_presymp, edgecolor='darkred'),
         Line2D([0], [0], marker='o', color='w', markerfacecolor='black', markersize=10),
-        Line2D([0], [0], marker='X', color='w', markerfacecolor='black', markersize=11),
-        Line2D([0], [0], marker='X', color='w', markerfacecolor='darkred', markersize=10)
+        Line2D([0], [0], marker='*', color='w', markerfacecolor='purple', markersize=13),
+        Line2D([0], [0], marker='X', color='w', markerfacecolor='darkred', markersize=10),
+        Line2D([0], [0], marker='X', color='w', markerfacecolor='black', markersize=11)
     ]
-    ax.legend(custom_lines, ['Silent Incubation Period', 'Presymptomatic Viral Shedding', 'Symptom Onset', 'Date of Death', 'Secondary Exposure on Ship'], 
-              loc='lower right', fontsize=11)
+    ax.legend(custom_lines, ['Silent Incubation', 'Presymptomatic Shedding', 'Symptom Onset', 
+                             'Pre-boarding Environmental Exposure', 'Secondary Exposure on Ship', 'Date of Death'], 
+              loc='lower left', bbox_to_anchor=(0.0, -0.15), ncol=3, fontsize=11)
               
     plt.tight_layout()
     
