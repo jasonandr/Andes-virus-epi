@@ -116,9 +116,10 @@ def main():
         Line2D([0], [0], marker='s', color='w', markerfacecolor='darkred', markersize=10),
         Line2D([0], [0], marker='X', color='w', markerfacecolor='black', markersize=11),
         Line2D([0], [0], marker='D', color='w', markerfacecolor='forestgreen', markersize=9),
+        Line2D([0], [0], marker='D', color='w', markerfacecolor='gray', markersize=9),
         Line2D([0], [0], marker='o', color='w', markerfacecolor='steelblue', markersize=8)
     ]
-    ax.legend(custom_lines, ['Symptom Onset', 'Critically Ill (Medevac)', 'Date of Death', 'Tested Asymptomatic', 'Case Confirmed / Reported'], 
+    ax.legend(custom_lines, ['Symptom Onset', 'Critically Ill (Medevac)', 'Date of Death', 'Tested Asymptomatic', 'Inconclusive Test', 'Case Confirmed / Reported'], 
               loc='lower left', bbox_to_anchor=(0.0, -0.15), ncol=3, fontsize=11)
               
     plt.tight_layout()
