@@ -15,10 +15,10 @@ def main():
         'Case 1 (Confirmed, Deceased)', 
         'Case 2 (Confirmed, Deceased)', 
         'Case 3 (Probable, Deceased)',
-        'Case 4 (Confirmed, Critically Ill)',
-        'Case 5 (France: Confirmed, Symptomatic)',
-        'Case 6 (Spain: Confirmed, Asymptomatic)',
-        'Case 7 (USA: Inconclusive Test)',
+        'Case 4 (France: Confirmed, Symptomatic)',
+        'Case 5 (Spain: Confirmed, Asymptomatic)',
+        'Case 6 (USA: Inconclusive Test)',
+        'Case 7 (Confirmed)',
         'Case 8 (Confirmed)',
         'Case 9 (Confirmed)',
         'Case 10 (Confirmed)',
@@ -41,21 +41,28 @@ def main():
         
         # Determine disembarkation / end of ship timeline
         if "Deceased" in patient:
-            # Died before disembarkation or shortly after
             if i < 2:
-                end_date = datetime(2026, 5, 1) # Died before May 2 report
+                # First two deaths (reported May 2)
+                end_date = datetime(2026, 5, 1) 
+                ax.barh(y_pos[i], (end_date - start_date).days, left=start_date, height=0.4, color=c_ship, edgecolor='steelblue')
+                ax.plot(end_date, y_pos[i], 'kX', markersize=12)
             else:
-                end_date = datetime(2026, 5, 8) # Third death reported later
+                # Third death: Critically ill on May 2, died ~May 8
+                crit_date = datetime(2026, 5, 2)
+                death_date = datetime(2026, 5, 8)
                 
-            # Time on ship
-            ax.barh(y_pos[i], (end_date - start_date).days, left=start_date, height=0.4, color=c_ship, edgecolor='steelblue')
-            ax.plot(end_date, y_pos[i], 'kX', markersize=12)
-            
-        elif "Critically Ill" in patient:
-            end_date = datetime(2026, 5, 2) # Evacuated / reported May 2
-            ax.barh(y_pos[i], (end_date - start_date).days, left=start_date, height=0.4, color=c_ship, edgecolor='steelblue')
-            ax.plot(end_date, y_pos[i], 's', color='darkred', markersize=10)
-            
+                # Time on ship until evacuation
+                ax.barh(y_pos[i], (crit_date - start_date).days, left=start_date, height=0.4, color=c_ship, edgecolor='steelblue')
+                
+                # Critical Illness Marker
+                ax.plot(crit_date, y_pos[i], 's', color='darkred', markersize=10)
+                
+                # Hospitalization period (dotted line)
+                ax.plot([crit_date, death_date], [y_pos[i], y_pos[i]], 'k:', alpha=0.5)
+                
+                # 3rd Death Marker
+                ax.plot(death_date, y_pos[i], 'kX', markersize=12)
+
         elif "France" in patient:
             end_date = datetime(2026, 5, 10) # Assume disembarked Tenerife
             onset_date = datetime(2026, 5, 13) # Symptomatic during repatriation
@@ -85,14 +92,14 @@ def main():
     milestones = [
         (datetime(2026, 4, 1), "Cruise Departure\n(Ushuaia)"),
         (datetime(2026, 4, 24), "Disembarkation\n(St. Helena)"),
-        (datetime(2026, 5, 2), "WHO Notified\n(First 2 Deaths)"),
+        (datetime(2026, 5, 2), "WHO Notified\n(2 Deaths, 1 Critical)"),
         (datetime(2026, 5, 6), "Disembarkation\n(Praia)"),
         (datetime(2026, 5, 10), "Disembarkation\n(Tenerife)")
     ]
     
     for i, (date, label) in enumerate(milestones):
         ax.axvline(date, color='gray', linestyle='--', alpha=0.5, zorder=0)
-        # Stagger the text significantly higher to avoid Patient 1 at y=0
+        # Stagger the text significantly higher
         y_text_pos = -1.5 if i % 2 == 0 else -2.5
         ax.text(date, y_text_pos, label, rotation=0, ha='center', va='top', 
                 fontsize=11, fontweight='bold', color='black', 
