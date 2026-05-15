@@ -56,14 +56,13 @@ def main():
     
     # Calculate presymptomatic vs symptomatic proportion
     presymp_prob = stats.gamma.cdf(incubation_period, a=shape, scale=scale)
-    plt.text(-10, max(pdf_generation)*0.8, f"Presymptomatic\nTransmission:\n{presymp_prob:.1%}", 
-             fontsize=12, color='darkred', ha='center', bbox=dict(facecolor='white', alpha=0.8, edgecolor='none'))
-             
-    plt.title('Infectiousness Profile of Andes Virus\n(Inferred from 1996 El Bolsón Serial Intervals)', fontsize=14, fontweight='bold')
-    plt.xlabel('Days relative to symptom onset of the infector', fontsize=12)
-    plt.ylabel('Infectiousness (Probability Density)', fontsize=12)
-    plt.legend()
-    plt.grid(alpha=0.3)
+    
+    plt.title('B. Infectiousness Profile Relative to Symptom Onset', fontsize=14, fontweight='bold')
+    plt.xlabel('Days Relative to Symptom Onset', fontsize=12)
+    plt.ylabel('Relative Infectiousness', fontsize=12)
+    
+    plt.legend(loc='upper right')
+    plt.grid(True, alpha=0.3)
     plt.tight_layout()
     
     timestamp = int(time.time())

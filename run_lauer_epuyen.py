@@ -105,11 +105,12 @@ def run_lauer_mle(df, artifacts_dir, walkthrough_path):
     # Plot empirical points
     sns.rugplot(df['incubation_days'], height=0.1, color='black', linewidth=2, label='Observed Cases')
     
-    plt.title('Lauer et al. MLE of Incubation Period\n(Fitted to Actual 2018 Epuyén Line List)', fontsize=14, fontweight='bold')
-    plt.xlabel('Incubation Period (Days)', fontsize=12)
-    plt.ylabel('Probability Density', fontsize=12)
-    plt.legend()
-    plt.grid(alpha=0.3)
+    plt.title('A. Incubation Period (Lauer Interval-Censored MLE)', fontsize=14, fontweight='bold')
+    plt.xlabel('Days from Exposure to Symptom Onset', fontsize=12)
+    plt.ylabel('Density', fontsize=12)
+    plt.legend(loc='upper right')
+    plt.grid(True, alpha=0.3)
+    
     plt.tight_layout()
     
     timestamp = int(time.time())

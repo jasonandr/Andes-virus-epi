@@ -25,17 +25,16 @@ def main():
     
     plt.figure(figsize=(10, 6))
     
-    plt.fill_between(x, env_pdf, color='forestgreen', alpha=0.4, label='Environmental (Rodent-to-Human)\nMedian: 18.5 days (Vial et al., 2006)')
+    plt.fill_between(x, env_pdf, color='forestgreen', alpha=0.4, label='Environmental Exposure')
     plt.plot(x, env_pdf, color='darkgreen', linewidth=2)
     
-    plt.fill_between(x, h2h_pdf, color='steelblue', alpha=0.4, label='Human-to-Human (Our MLE)\nMedian: 20.1 days (Epuyén 2018)')
+    plt.fill_between(x, h2h_pdf, color='steelblue', alpha=0.4, label='Human-to-Human Contact')
     plt.plot(x, h2h_pdf, color='midnightblue', linewidth=2)
     
-    # Add vertical lines for medians
     plt.axvline(x=18.5, color='darkgreen', linestyle='--', alpha=0.7)
     plt.axvline(x=20.17, color='midnightblue', linestyle='--', alpha=0.7)
     
-    plt.title('Comparative Incubation Period: Environmental vs. Human-to-Human', fontsize=14, fontweight='bold', pad=15)
+    plt.title('A. Comparative Incubation Periods (Environmental vs. Human-to-Human)', fontsize=14, fontweight='bold', pad=15)
     plt.xlabel('Incubation Period (Days)', fontsize=12)
     plt.ylabel('Probability Density', fontsize=12)
     

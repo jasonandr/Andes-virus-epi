@@ -27,37 +27,27 @@ def simulate_outbreak(R0, k, max_generations=20, max_cases=500):
 def main():
     R0 = 0.96
     k = 0.23
-    num_sims = 10000
+    num_sims = 50000
     
     np.random.seed(42)
-    nb_sizes = np.array([simulate_outbreak(R0, k) for _ in range(num_sims)])
-    
-    nb_ext_index = np.mean(nb_sizes == 1) * 100
-    nb_major = np.mean(nb_sizes > 10) * 100
+    nb_sizes = np.array([simulate_outbreak(R0, k, max_cases=5000) for _ in range(num_sims)])
     
     plt.figure(figsize=(10, 6))
     ax = plt.gca()
     
-    # 1. Calculate KDE for the "Cloud"
-    # We do KDE in log space since the data spans orders of magnitude
     log_sizes = np.log10(nb_sizes)
     kde = stats.gaussian_kde(log_sizes)
-    x_eval = np.linspace(np.log10(0.8), np.log10(1000), 1000)
+    x_eval = np.linspace(np.log10(0.8), np.log10(5000), 1000)
     y_eval = kde(x_eval)
     
     max_y = np.max(y_eval)
     
-    # Plot the Cloud
     ax.fill_between(10**x_eval, 0, y_eval, color='teal', alpha=0.5)
     ax.plot(10**x_eval, y_eval, color='teal', linewidth=2)
     
-    # 2. Strip Plot (The "Rain")
-    # Put rain below the cloud
     jitter = np.random.uniform(-max_y*0.2, -max_y*0.05, size=len(nb_sizes))
-    ax.scatter(nb_sizes, jitter, alpha=0.05, color='teal', s=15, zorder=0)
+    ax.scatter(nb_sizes, jitter, alpha=0.01, color='teal', s=10, zorder=0)
     
-    # 3. Boxplot
-    # Positioned below the rain
     ax.boxplot(nb_sizes, vert=False, positions=[-max_y*0.3], widths=[max_y*0.1], 
                manage_ticks=False, patch_artist=True, showfliers=False,
                boxprops=dict(facecolor='none', color='black', linewidth=1.5),
@@ -66,25 +56,19 @@ def main():
                medianprops=dict(color='black', linewidth=2.5))
                
     ax.set_xscale('log')
+    ax.set_xticks([1, 10, 100, 1000])
+    ax.set_xticklabels(['1', '10', '100', '1000'])
     ax.set_ylim(-max_y*0.4, max_y * 1.1)
-    ax.set_yticks([]) # Hide y-axis ticks since density is relative
+    ax.set_yticks([]) 
     
-    plt.title('Stochastic Extinction vs. Major Outbreak\n(Negative Binomial Superspreading Model)', fontsize=14, fontweight='bold', pad=20)
-    plt.xlabel('Total Outbreak Size (Log Scale)', fontsize=12)
+    plt.title('D. Stochastic Extinction vs. Major Outbreak (Superspreading Model)', fontsize=14, fontweight='bold')
+    plt.xlabel('Total Outbreak Size', fontsize=12)
     plt.ylabel('Relative Density', fontsize=12)
     
-    # Remove grid lines and top/right/left spines
     ax.grid(False)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
-    
-    textstr = '\n'.join((
-        rf'Extinction at Index Case: {nb_ext_index:.1f}%',
-        rf'Major Cluster (>10): {nb_major:.1f}%'))
-        
-    plt.text(0.65, 0.85, textstr, transform=ax.transAxes, fontsize=12,
-            verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8, edgecolor='lightgrey'))
             
     plt.tight_layout()
     

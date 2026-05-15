@@ -53,11 +53,10 @@ def main():
             
     df = pd.DataFrame.from_dict(patients, orient='index')
     
-    plt.figure(figsize=(12, 5))
+    plt.figure(figsize=(7, 5))
     
     # Age vs Secondary Cases
-    plt.subplot(1, 2, 1)
-    sns.scatterplot(data=df, x='age', y='secondary_cases', hue='sex', s=100, alpha=0.7, palette='Set1')
+    sns.scatterplot(data=df, x='age', y='secondary_cases', s=100, alpha=0.7, color='purple')
     
     # Add a slight jitter for overlapping points
     np.random.seed(42)
@@ -68,15 +67,6 @@ def main():
     plt.xlabel('Age (Years)')
     plt.ylabel('Number of Secondary Cases')
     plt.grid(True, alpha=0.3)
-    
-    # Boxplot by Sex
-    plt.subplot(1, 2, 2)
-    sns.boxplot(data=df, x='sex', y='secondary_cases', palette='Set1')
-    sns.stripplot(data=df, x='sex', y='secondary_cases', color='black', alpha=0.5, jitter=True)
-    plt.title('Sex vs. Infectiousness (2018 Epuyén)', fontweight='bold')
-    plt.xlabel('Sex')
-    plt.ylabel('Number of Secondary Cases')
-    plt.grid(True, alpha=0.3, axis='y')
     
     plt.tight_layout()
     

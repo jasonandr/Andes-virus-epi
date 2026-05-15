@@ -131,23 +131,12 @@ def main():
     plt.plot(x_nb, pmf_nb, 'k--', linewidth=2.5, label=f'Negative Binomial Fit\n(k = {k_comb:.2f}, Superspreading)')
     plt.plot(x_nb, pmf_poisson, 'r:', linewidth=2.5, label=f'Poisson Fit\n(k $\\rightarrow \\infty$, Homogenous)')
     
-    plt.title('Offspring Distribution of Andes Virus (Transmission Heterogeneity)', fontsize=14, fontweight='bold')
+    plt.title('C. Offspring Distribution and Transmission Heterogeneity', fontsize=14, fontweight='bold')
     plt.xlabel('Number of Secondary Cases per Infectious Individual', fontsize=12)
-    plt.ylabel('Frequency (Number of Individuals)', fontsize=12)
-    plt.xticks(np.arange(0, max_cases + 1))
+    plt.ylabel('Frequency', fontsize=12)
+    plt.legend(loc='upper right')
+    plt.grid(True, alpha=0.3, axis='y')
     
-    # Add text box explaining superspreading
-    textstr = '\n'.join((
-        r'$\mathrm{Dispersion\ Parameter\ (k)} = %.2f$' % (k_comb, ),
-        r'A value of k < 1 indicates high heterogeneity',
-        r'(i.e., superspreading dynamics).',
-        r'Most individuals infect 0 others, while',
-        r'a few "super-spreaders" infect many.'))
-    plt.text(0.45, 0.75, textstr, transform=plt.gca().transAxes, fontsize=11,
-            verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
-            
-    plt.legend()
-    plt.grid(axis='y', alpha=0.3)
     plt.tight_layout()
     
     timestamp = int(time.time())

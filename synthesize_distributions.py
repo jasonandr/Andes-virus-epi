@@ -50,7 +50,7 @@ def main():
     plt.axvspan(params['serial_interval']['range_days'][0], params['serial_interval']['range_days'][1], 
                 color='orange', alpha=0.1, ymin=0.1, ymax=0.2, label='Extracted Serial Interval Range (19-40)')
 
-    plt.title('Synthesized Statistical Distributions for Andes Virus Parameters', fontsize=14, fontweight='bold')
+    plt.title('A. Foundational Parameter Distributions', fontsize=14, fontweight='bold')
     plt.xlabel('Days', fontsize=12)
     plt.ylabel('Probability Density', fontsize=12)
     plt.legend(loc='upper right')
