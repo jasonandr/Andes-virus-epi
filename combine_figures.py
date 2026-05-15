@@ -3,13 +3,19 @@ import matplotlib.image as mpimg
 import os
 import time
 
+import glob
+
+def get_latest_file(directory, prefix):
+    files = glob.glob(os.path.join(directory, f"{prefix}*.png"))
+    return max(files, key=os.path.getctime) if files else None
+
 def main():
     artifacts_dir = "/Users/jasonandrews/.gemini/antigravity/brain/26e83a96-4a63-4226-94fe-627b326b4048/artifacts"
     
-    img1_path = os.path.join(artifacts_dir, "actual_epuyen_mle_1778872611.png")
-    img2_path = os.path.join(artifacts_dir, "infectiousness_profile_1778871738.png")
-    img3_path = os.path.join(artifacts_dir, "offspring_distribution_1778872963.png")
-    img4_path = os.path.join(artifacts_dir, "parameter_distributions_1778869129.png")
+    img1_path = get_latest_file(artifacts_dir, "actual_epuyen_mle_")
+    img2_path = get_latest_file(artifacts_dir, "infectiousness_profile_")
+    img3_path = get_latest_file(artifacts_dir, "offspring_distribution_")
+    img4_path = get_latest_file(artifacts_dir, "parameter_distributions_")
     
     fig, axes = plt.subplots(2, 2, figsize=(20, 12))
     
