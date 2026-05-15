@@ -15,14 +15,14 @@ def main():
     img2_path = get_latest_file(artifacts_dir, "infectiousness_profile_")
     img3_path = get_latest_file(artifacts_dir, "offspring_distribution_")
     
-    fig, axes = plt.subplots(1, 3, figsize=(24, 6))
+    fig, axes = plt.subplots(3, 1, figsize=(10, 18))
     
     # Read images
     img1 = mpimg.imread(img1_path)
     img2 = mpimg.imread(img2_path)
     img3 = mpimg.imread(img3_path)
     
-    # Plot images
+    # Plot images vertically
     axes[0].imshow(img1)
     axes[0].axis('off')
     
@@ -40,7 +40,7 @@ def main():
     plt.savefig(combined_plot_path, dpi=300, bbox_inches='tight')
     plt.close()
     
-    print(f"Saved combined 1x3 plot to {combined_plot_path}")
+    print(f"Saved combined 3x1 plot to {combined_plot_path}")
 
 if __name__ == "__main__":
     main()

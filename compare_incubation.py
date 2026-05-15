@@ -51,7 +51,7 @@ def main():
     artifacts_dir = "/Users/jasonandrews/.gemini/antigravity/brain/26e83a96-4a63-4226-94fe-627b326b4048/artifacts"
     timestamp = int(time.time())
     plot_path = os.path.join(artifacts_dir, f"comparative_incubation_{timestamp}.png")
-    plt.savefig(plot_path, dpi=300, bbox_inches='tight')
+    plt.savefig(plot_path, dpi=300)
     plt.close()
     
     print(f"Saved comparative incubation plot to {plot_path}")

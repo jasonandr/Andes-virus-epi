@@ -56,7 +56,7 @@ def main():
     plt.figure(figsize=(7, 5))
     
     # Age vs Secondary Cases
-    sns.scatterplot(data=df, x='age', y='secondary_cases', s=100, alpha=0.7, color='purple')
+    sns.scatterplot(data=df, x='age', y='secondary_cases', hue='sex', s=100, alpha=0.7, palette='Set1')
     
     # Add a slight jitter for overlapping points
     np.random.seed(42)
