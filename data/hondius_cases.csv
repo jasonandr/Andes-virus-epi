@@ -1,0 +1,12 @@
+case_id,status,date_of_onset,outcome,role
+1,Confirmed,2026-04-28,Fatal,Passenger
+2,Confirmed,2026-04-29,Recovering,Passenger
+3,Confirmed,2026-04-29,Fatal,Crew
+4,Confirmed,2026-04-30,Recovering,Passenger
+5,Confirmed,2026-05-01,Recovering,Crew
+6,Probable,2026-05-01,Recovering,Passenger
+7,Confirmed,2026-05-02,Fatal,Passenger
+8,Confirmed,2026-05-03,Recovering,Passenger
+9,Probable,2026-05-05,Recovering,Crew
+10,Confirmed,2026-05-06,Recovering,Passenger
+11,Inconclusive,2026-05-08,Recovering,Crew
