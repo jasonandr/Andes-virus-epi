@@ -1,15 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.stats as stats
+import seaborn as sns
 import os
 import time
 
-def simulate_outbreak(R0, k=None, max_generations=20, max_cases=500):
-    """
-    Simulate a branching process outbreak.
-    If k is None, use Poisson. Otherwise use Negative Binomial.
-    Returns total outbreak size.
-    """
+def simulate_outbreak(R0, k, max_generations=20, max_cases=500):
     current_cases = 1
     total_cases = 1
     
@@ -17,19 +12,14 @@ def simulate_outbreak(R0, k=None, max_generations=20, max_cases=500):
         if current_cases == 0:
             break
             
-        if k is None:
-            # Poisson
-            next_gen_cases = np.sum(np.random.poisson(R0, current_cases))
-        else:
-            # Negative Binomial
-            p = k / (k + R0)
-            next_gen_cases = np.sum(np.random.negative_binomial(k, p, current_cases))
+        p = k / (k + R0)
+        next_gen_cases = np.sum(np.random.negative_binomial(k, p, current_cases))
             
         current_cases = next_gen_cases
         total_cases += current_cases
         
         if total_cases >= max_cases:
-            return max_cases # Cap to avoid infinite loops if R0 > 1
+            return max_cases
             
     return total_cases
 
@@ -38,63 +28,51 @@ def main():
     k = 0.23
     num_sims = 10000
     
-    nb_sizes = []
-    poisson_sizes = []
-    
     np.random.seed(42)
+    nb_sizes = np.array([simulate_outbreak(R0, k) for _ in range(num_sims)])
     
-    for _ in range(num_sims):
-        nb_sizes.append(simulate_outbreak(R0, k=k))
-        poisson_sizes.append(simulate_outbreak(R0, k=None))
-        
-    nb_sizes = np.array(nb_sizes)
-    poisson_sizes = np.array(poisson_sizes)
-    
-    # Calculate probabilities
-    # 1. Extinction at index case (total size = 1)
     nb_ext_index = np.mean(nb_sizes == 1) * 100
-    p_ext_index = np.mean(poisson_sizes == 1) * 100
-    
-    # 2. Major outbreak (>10 cases)
     nb_major = np.mean(nb_sizes > 10) * 100
-    p_major = np.mean(poisson_sizes > 10) * 100
     
-    # Plotting
     plt.figure(figsize=(10, 6))
     
-    bins = np.logspace(0, 3, 30)
-    plt.hist(poisson_sizes, bins=bins, alpha=0.5, label='Homogenous (Poisson)', color='red', density=True)
-    plt.hist(nb_sizes, bins=bins, alpha=0.5, label=f'Superspreading (NegBinom, k={k})', color='blue', density=True)
+    # Raincloud plot components for log scale data
+    # 1. KDE Plot (The "Cloud")
+    ax = sns.kdeplot(x=nb_sizes, log_scale=True, fill=True, alpha=0.5, color='teal', linewidth=2, cut=0)
     
-    plt.xscale('log')
-    plt.yscale('log')
+    # 2. Strip Plot (The "Rain")
+    # Add some random y-jitter for the strip plot at the bottom
+    jitter = np.random.uniform(-0.05, 0.05, size=len(nb_sizes))
+    # We offset the rain below the density plot (y around -0.1)
+    ax.scatter(nb_sizes, jitter - 0.1, alpha=0.1, color='teal', s=10)
     
-    plt.title('Stochastic Extinction vs. Major Outbreak\n(10,000 Branching Process Simulations)', fontsize=14, fontweight='bold')
+    # 3. Boxplot
+    sns.boxplot(x=nb_sizes, width=0.1, boxprops={'facecolor':'none', 'edgecolor':'black'}, zorder=10, ax=ax, orient='h')
+    
+    plt.title('Stochastic Extinction vs. Major Outbreak\n(Negative Binomial Superspreading Model)', fontsize=14, fontweight='bold', pad=20)
     plt.xlabel('Total Outbreak Size (Log Scale)', fontsize=12)
-    plt.ylabel('Probability Density (Log Scale)', fontsize=12)
+    plt.ylabel('Density', fontsize=12)
+    
+    # Remove grid lines and top/right spines
+    ax.grid(False)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
     
     textstr = '\n'.join((
-        r'Extinction at Index Case (Size = 1):',
-        rf'  Homogenous: {p_ext_index:.1f}%',
-        rf'  Superspreading: {nb_ext_index:.1f}%',
-        r'',
-        r'Probability of Major Cluster (>10):',
-        rf'  Homogenous: {p_major:.1f}%',
-        rf'  Superspreading: {nb_major:.1f}%'))
+        rf'Extinction at Index Case: {nb_ext_index:.1f}%',
+        rf'Major Cluster (>10): {nb_major:.1f}%'))
         
-    plt.text(0.55, 0.95, textstr, transform=plt.gca().transAxes, fontsize=11,
-            verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    plt.text(0.65, 0.85, textstr, transform=ax.transAxes, fontsize=12,
+            verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8, edgecolor='lightgrey'))
             
-    plt.legend(loc='center right')
-    plt.grid(True, alpha=0.3, which='both')
     plt.tight_layout()
     
     artifacts_dir = "/Users/jasonandrews/.gemini/antigravity/brain/26e83a96-4a63-4226-94fe-627b326b4048/artifacts"
     timestamp = int(time.time())
-    plot_path = os.path.join(artifacts_dir, f"appendix_stochastic_extinction_{timestamp}.png")
-    plt.savefig(plot_path, dpi=300)
+    plot_path = os.path.join(artifacts_dir, f"appendix_stochastic_extinction_raincloud_{timestamp}.png")
+    plt.savefig(plot_path, dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"Saved stochastic extinction simulation to {plot_path}")
+    print(f"Saved raincloud plot to {plot_path}")
 
 if __name__ == "__main__":
     main()
