@@ -7,10 +7,10 @@ import time
 
 def main():
     # Environmental Incubation (Vial et al., 2006)
-    # Median 18.5 days. Lognormal parameters: mu = ln(18.5) = 2.917
-    # 95% range 7-39 days implies sigma ~ 0.43
-    env_mu = np.log(18.5)
-    env_sigma = 0.43
+    # MLE from digitized Figure 1:
+    # Median 18.3 days. mu = 2.9057, sigma = 0.3167
+    env_mu = 2.9057
+    env_sigma = 0.3167
     
     # H2H Incubation (Our MLE from 2018 Epuyén Data)
     # Median 20.17 days. mu = ln(20.17) = 3.004
@@ -31,12 +31,12 @@ def main():
     plt.fill_between(x, h2h_pdf, color='steelblue', alpha=0.4, label='Human-to-Human Contact')
     plt.plot(x, h2h_pdf, color='midnightblue', linewidth=2)
     
-    plt.axvline(x=18.5, color='darkgreen', linestyle='--', alpha=0.7)
+    plt.axvline(x=18.3, color='darkgreen', linestyle='--', alpha=0.7)
     plt.axvline(x=20.17, color='midnightblue', linestyle='--', alpha=0.7)
     
-    plt.title('A', loc='left', fontsize=16, fontweight='bold')
-    plt.xlabel('Incubation Period (Days)', fontsize=12)
-    plt.ylabel('Probability Density', fontsize=12)
+    plt.title('A', loc='left', fontsize=22, fontweight='bold')
+    plt.xlabel('Incubation Period (Days)', fontsize=16)
+    plt.ylabel('Probability Density', fontsize=16)
     
     # Clean up plot
     ax = plt.gca()
@@ -44,7 +44,7 @@ def main():
     ax.spines['right'].set_visible(False)
     plt.grid(axis='y', alpha=0.3)
     
-    plt.legend(loc='upper right', fontsize=11, framealpha=0.9)
+    plt.legend(loc='upper right', fontsize=14, framealpha=0.9)
     plt.xlim(0, 60)
     plt.tight_layout()
     

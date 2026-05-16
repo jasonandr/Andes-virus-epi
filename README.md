@@ -6,7 +6,7 @@ This repository contains the epidemiological data, statistical models, and branc
 Unlike most hantaviruses, which are exclusively transmitted via aerosolized rodent excreta, ANDV is capable of human-to-human transmission. To quantify the specific risks this poses to high-density environments like cruise ships, we analyzed the two most extensively documented historical outbreaks: the 1996 cluster in El Bolsón and the 2018–2019 outbreak in Epuyén, Argentina.
 
 ## Key Findings
-1. **Prolonged Incubation:** Interval-censored Maximum Likelihood Estimation (MLE) of bounded social exposures reveals a median human-to-human incubation period of 20.1 days, remarkably similar to environmental exposures (18.5 days).
+1. **Prolonged Incubation:** Interval-censored Maximum Likelihood Estimation (MLE) of bounded social exposures reveals a median human-to-human incubation period of 20.1 days, remarkably similar to environmental exposures (18.3 days).
 2. **Presymptomatic Shedding:** Deconvolution of empirical serial intervals demonstrates that ~24% of transmission occurs prior to the onset of severe febrile illness.
 3. **Extreme Transmission Heterogeneity:** Negative binomial regression of the offspring distribution yields an $R_0 = 0.96$ and a dispersion parameter of $k = 0.24$. Over 80% of infected individuals generate 0 or 1 secondary cases, while a minority of "super-spreaders" are responsible for massive multi-generational transmission chains.
 4. **Stochastic Extinction:** Branching process simulations show that, despite superspreading risk, 69.5% of single-case introductions result in immediate stochastic extinction.
