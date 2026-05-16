@@ -107,7 +107,7 @@ def main():
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
     
-    ax.set_title("Patient-Level Timeline of the MV Hondius Andes Virus Outbreak", fontsize=16, fontweight='bold', pad=15)
+    ax.set_title("", fontsize=16, fontweight='bold', pad=15)
     
     # Custom Legend
     from matplotlib.lines import Line2D

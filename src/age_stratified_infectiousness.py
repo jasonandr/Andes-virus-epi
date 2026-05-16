@@ -63,7 +63,7 @@ def main():
     jitter_y = df['secondary_cases'] + np.random.normal(0, 0.1, len(df))
     plt.scatter(df['age'], jitter_y, alpha=0) # invisible just for scale
     
-    plt.title('Age vs. Infectiousness (2018 Epuyén)', fontweight='bold')
+    plt.title("", fontweight='bold')
     plt.xlabel('Age (Years)')
     plt.ylabel('Number of Secondary Cases')
     plt.grid(True, alpha=0.3)

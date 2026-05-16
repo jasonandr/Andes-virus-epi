@@ -57,7 +57,7 @@ def main():
     # Calculate presymptomatic vs symptomatic proportion
     presymp_prob = stats.gamma.cdf(incubation_period, a=shape, scale=scale)
     
-    plt.title('B. Infectiousness Profile Relative to Symptom Onset', fontsize=14, fontweight='bold')
+    plt.title('B', loc='left', fontsize=16, fontweight='bold')
     plt.xlabel('Days Relative to Symptom Onset', fontsize=12)
     plt.ylabel('Relative Infectiousness', fontsize=12)
     

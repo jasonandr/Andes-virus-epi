@@ -61,7 +61,7 @@ def main():
     ax.set_ylim(-max_y*0.4, max_y * 1.1)
     ax.set_yticks([]) 
     
-    plt.title('Stochastic Extinction vs. Major Outbreak (Superspreading Model)', fontsize=14, fontweight='bold')
+    plt.title("", fontsize=14, fontweight='bold')
     plt.xlabel('Total Outbreak Size', fontsize=12)
     plt.ylabel('Relative Density', fontsize=12)
     

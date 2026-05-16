@@ -131,7 +131,7 @@ def main():
     plt.plot(x_nb, pmf_nb, 'k--', linewidth=2.5, label=f'Negative Binomial Fit\n(k = {k_comb:.2f}, Superspreading)')
     plt.plot(x_nb, pmf_poisson, 'r:', linewidth=2.5, label=f'Poisson Fit\n(k $\\rightarrow \\infty$, Homogenous)')
     
-    plt.title('C. Offspring Distribution and Transmission Heterogeneity', fontsize=14, fontweight='bold')
+    plt.title('C', loc='left', fontsize=16, fontweight='bold')
     plt.xlabel('Number of Secondary Cases per Infectious Individual', fontsize=12)
     plt.ylabel('Frequency', fontsize=12)
     plt.legend(loc='upper right')

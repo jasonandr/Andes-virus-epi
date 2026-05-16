@@ -34,7 +34,7 @@ def main():
     plt.axvline(x=18.5, color='darkgreen', linestyle='--', alpha=0.7)
     plt.axvline(x=20.17, color='midnightblue', linestyle='--', alpha=0.7)
     
-    plt.title('A. Comparative Incubation Periods (Environmental vs. Human-to-Human)', fontsize=14, fontweight='bold', pad=15)
+    plt.title('A', loc='left', fontsize=16, fontweight='bold')
     plt.xlabel('Incubation Period (Days)', fontsize=12)
     plt.ylabel('Probability Density', fontsize=12)
     
