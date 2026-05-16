@@ -114,26 +114,18 @@ def main():
     print(f"R0 = {R0_comb:.2f}, Dispersion k = {k_comb:.2f}")
     
     # Plotting
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(10, 8))
     
     max_cases = max(combined_offspring)
     bins = np.arange(-0.5, max_cases + 1.5, 1)
     
-    plt.hist(epuyen_offspring, bins=bins, alpha=0.5, label='2018 Epuyén', color='teal', edgecolor='black')
-    plt.hist(el_bolson_offspring, bins=bins, alpha=0.5, label='1996 El Bolsón', color='darkred', edgecolor='black')
+    plt.hist([epuyen_offspring, el_bolson_offspring], bins=bins, label=['2018 Epuyén', '1996 El Bolsón'], color=['teal', 'darkred'], edgecolor='black')
     
-    # Plot fitted NB for combined
-    x_nb = np.arange(0, max_cases + 1)
-    p = k_comb / (k_comb + R0_comb)
-    pmf_nb = stats.nbinom.pmf(x_nb, n=k_comb, p=p) * len(combined_offspring)
-    pmf_poisson = stats.poisson.pmf(x_nb, R0_comb) * len(combined_offspring)
+    # Removed NB and Poisson fits as requested
     
-    plt.plot(x_nb, pmf_nb, 'k--', linewidth=2.5, label=f'Negative Binomial Fit\n(k = {k_comb:.2f}, Superspreading)')
-    plt.plot(x_nb, pmf_poisson, 'r:', linewidth=2.5, label=f'Poisson Fit\n(k $\\rightarrow \\infty$, Homogenous)')
-    
-    plt.title('C', loc='left', fontsize=16, fontweight='bold')
-    plt.xlabel('Number of Secondary Cases per Infectious Individual', fontsize=12)
-    plt.ylabel('Frequency', fontsize=12)
+    plt.title('C', loc='left', fontsize=22, fontweight='bold')
+    plt.xlabel('Number of Secondary Cases per Infectious Individual', fontsize=16)
+    plt.ylabel('Frequency', fontsize=16)
     plt.legend(loc='upper right')
     plt.grid(True, alpha=0.3, axis='y')
     
