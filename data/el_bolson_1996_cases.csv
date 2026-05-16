@@ -13,3 +13,5 @@ O,Bariloche,Hospital exposure,1996-11-07,P
 N,Bariloche,"Receptionist at hospital; contact with P and Qa",1996-11-08,P
 C,El Bolson,Spouse of Aa,1996-11-08,Aa
 M,Buenos Aires,"Daughter of J and H; traveled with L, J, and H",1996-11-28,J
+E,Buenos Aires,"Friend of C, also a doctor; took care of her daily",1996-11-28,C
+D,Buenos Aires,Doctor of C at Buenos Aires Hospital,1996-12-05,C

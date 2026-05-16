@@ -8,8 +8,8 @@ Unlike most hantaviruses, which are exclusively transmitted via aerosolized rode
 ## Key Findings
 1. **Prolonged Incubation:** Interval-censored Maximum Likelihood Estimation (MLE) of bounded social exposures reveals a median human-to-human incubation period of 20.1 days, remarkably similar to environmental exposures (18.5 days).
 2. **Presymptomatic Shedding:** Deconvolution of empirical serial intervals demonstrates that ~24% of transmission occurs prior to the onset of severe febrile illness.
-3. **Extreme Transmission Heterogeneity:** Negative binomial regression of the offspring distribution yields an $R_0 = 0.96$ and a dispersion parameter of $k = 0.23$. Over 80% of infected individuals generate 0 or 1 secondary cases, while a minority of "super-spreaders" are responsible for massive multi-generational transmission chains.
-4. **Stochastic Extinction:** Branching process simulations show that, despite superspreading risk, 68.5% of single-case introductions result in immediate stochastic extinction.
+3. **Extreme Transmission Heterogeneity:** Negative binomial regression of the offspring distribution yields an $R_0 = 0.96$ and a dispersion parameter of $k = 0.24$. Over 80% of infected individuals generate 0 or 1 secondary cases, while a minority of "super-spreaders" are responsible for massive multi-generational transmission chains.
+4. **Stochastic Extinction:** Branching process simulations show that, despite superspreading risk, 69.5% of single-case introductions result in immediate stochastic extinction.
 
 ## Repository Structure
 * `/data/`: Raw and parsed line lists from historical outbreaks (El Bolsón 1996, Epuyén 2018) and the MV Hondius cluster.
