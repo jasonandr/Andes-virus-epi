@@ -26,7 +26,7 @@ def simulate_outbreak(R0, k, max_generations=20, max_cases=500):
 
 def main():
     R0 = 0.96
-    k = 0.23
+    k = 0.713
     num_sims = 50000
     
     np.random.seed(42)

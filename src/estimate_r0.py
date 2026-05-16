@@ -10,49 +10,17 @@ import re
 from scipy.optimize import minimize
 
 def get_epuyen_offspring():
-    pdf_path = "/Users/jasonandrews/repos/hanta/literature/nejmoa2009040_appendix_1.pdf"
+    df = pd.read_csv('/Users/jasonandrews/repos/hanta/data/epuyen_2018_cases.csv')
     
-    cases = {}
-    
-    with pdfplumber.open(pdf_path) as pdf:
-        for page in pdf.pages:
-            text = page.extract_text()
-            if text:
-                for line in text.split('\n'):
-                    if line.startswith("Patient"):
-                        parts = line.split()
-                        patient_id = parts[1]
-                        
-                        # Find the onset date using regex
-                        dates = re.findall(r'\d{1,2}/\d{1,2}/\d{4}', line)
-                        if len(dates) >= 1:
-                            onset_date = dates[-1] # usually the last date is the onset
-                            # The infector ID is usually the token right after the onset date
-                            try:
-                                onset_idx = parts.index(onset_date)
-                                infector_str = parts[onset_idx + 1]
-                                
-                                # Sometimes it's a number, sometimes it's "HRE" or "ND" or "-"
-                                if infector_str.isdigit():
-                                    infector_id = infector_str
-                                else:
-                                    infector_id = None
-                            except ValueError:
-                                infector_id = None
-                                
-                            cases[patient_id] = infector_id
-                            
-    # Now count secondary cases per patient
     # Initialize all patients with 0 secondary cases
-    offspring_counts = {str(i): 0 for i in range(1, 35)} 
+    offspring_counts = {str(case): 0 for case in df['case_id']}
     
-    for pat, infector in cases.items():
-        if infector and infector in offspring_counts:
+    for idx, row in df.iterrows():
+        infector = str(row['infector_id'])
+        if infector != 'None' and infector != 'nan' and infector != 'Zoonotic' and infector in offspring_counts:
             offspring_counts[infector] += 1
             
-    # Include patients that are in the dictionary
-    counts = [offspring_counts[str(i)] for i in range(1, 35) if str(i) in offspring_counts or str(i) in cases.values()]
-    return np.array(counts)
+    return np.array(list(offspring_counts.values()))
 
 def get_el_bolson_offspring():
     df = pd.read_csv('/Users/jasonandrews/repos/hanta/data/el_bolson_1996_cases.csv')
