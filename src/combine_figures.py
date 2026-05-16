@@ -14,23 +14,28 @@ def main():
     img1_path = get_latest_file(artifacts_dir, "comparative_incubation_")
     img2_path = get_latest_file(artifacts_dir, "infectiousness_profile_")
     img3_path = get_latest_file(artifacts_dir, "offspring_distribution_")
+    img4_path = get_latest_file(artifacts_dir, "lloyd_smith_analytical_")
     
-    fig, axes = plt.subplots(3, 1, figsize=(10, 18))
+    fig, axes = plt.subplots(2, 2, figsize=(20, 14))
     
     # Read images
     img1 = mpimg.imread(img1_path)
     img2 = mpimg.imread(img2_path)
     img3 = mpimg.imread(img3_path)
+    img4 = mpimg.imread(img4_path)
     
-    # Plot images vertically
-    axes[0].imshow(img1)
-    axes[0].axis('off')
+    # Plot images in 2x2 grid
+    axes[0, 0].imshow(img1)
+    axes[0, 0].axis('off')
     
-    axes[1].imshow(img2)
-    axes[1].axis('off')
+    axes[0, 1].imshow(img2)
+    axes[0, 1].axis('off')
     
-    axes[2].imshow(img3)
-    axes[2].axis('off')
+    axes[1, 0].imshow(img3)
+    axes[1, 0].axis('off')
+    
+    axes[1, 1].imshow(img4)
+    axes[1, 1].axis('off')
     
     plt.tight_layout(pad=0)
     
@@ -38,9 +43,12 @@ def main():
     combined_plot_filename = f"combined_historical_analysis_{timestamp}.png"
     combined_plot_path = os.path.join(artifacts_dir, combined_plot_filename)
     plt.savefig(combined_plot_path, dpi=300, bbox_inches='tight')
+    
+    os.makedirs('figures', exist_ok=True)
+    plt.savefig('figures/figure_1_combined_2x2.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    print(f"Saved combined 3x1 plot to {combined_plot_path}")
+    print(f"Saved combined 2x2 plot to {combined_plot_path}")
 
 if __name__ == "__main__":
     main()

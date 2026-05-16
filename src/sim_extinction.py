@@ -62,8 +62,8 @@ def main():
     ax.set_yticks([]) 
     
     plt.title("", fontsize=14, fontweight='bold')
-    plt.xlabel('Total Outbreak Size', fontsize=12)
-    plt.ylabel('Relative Density', fontsize=12)
+    plt.xlabel('Total Outbreak Size', fontsize=16)
+    plt.ylabel('Relative Density', fontsize=16)
     
     ax.grid(False)
     ax.spines['top'].set_visible(False)

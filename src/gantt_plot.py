@@ -54,11 +54,11 @@ def main():
 
     # Standard 14-day Quarantine Line
     ax.axvline(x=14, color='orange', linestyle='--', linewidth=2.5, zorder=0)
-    ax.text(14.5, 8.5, "Standard 14-Day\nQuarantine Ends", color='darkorange', fontweight='bold', fontsize=11, va='top')
+    ax.text(14.5, 8.5, "Standard 14-Day\nQuarantine Ends", color='darkorange', fontweight='bold', fontsize=14, va='top')
     
     # Proposed 45-day Quarantine Line
     ax.axvline(x=45, color='forestgreen', linestyle='--', linewidth=2.5, zorder=0)
-    ax.text(45.5, 8.5, "Proposed 45-Day\nObservation Ends", color='forestgreen', fontweight='bold', fontsize=11, va='top')
+    ax.text(45.5, 8.5, "Proposed 45-Day\nObservation Ends", color='forestgreen', fontweight='bold', fontsize=14, va='top')
     
     # Create custom legend
     from matplotlib.lines import Line2D
@@ -68,12 +68,12 @@ def main():
         Line2D([0], [0], marker='o', color='w', markerfacecolor='black', markersize=10),
         Line2D([0], [0], marker='X', color='w', markerfacecolor='darkred', markersize=12)
     ]
-    ax.legend(custom_lines, ['Silent Incubation Period', 'Presymptomatic Viral Shedding', 'Fever / Symptom Onset', 'Superspreading Exposure'], loc='lower right', fontsize=11)
+    ax.legend(custom_lines, ['Silent Incubation Period', 'Presymptomatic Viral Shedding', 'Fever / Symptom Onset', 'Superspreading Exposure'], loc='lower right', fontsize=14)
 
     ax.set_yticks(y_pos)
-    ax.set_yticklabels(patients, fontsize=12)
-    ax.set_xlabel('Days Since Initial Vessel Exposure', fontsize=13, fontweight='bold')
-    ax.set_title('The Danger of Silent Spread: Andes Virus Outbreak Timeline', fontsize=16, fontweight='bold', pad=15)
+    ax.set_yticklabels(patients, fontsize=16)
+    ax.set_xlabel('Days Since Initial Vessel Exposure', fontsize=17, fontweight='bold')
+    ax.set_title('The Danger of Silent Spread: Andes Virus Outbreak Timeline', fontsize=22, fontweight='bold', pad=15)
     
     ax.invert_yaxis()  # Index case at top
     ax.set_xlim(-2, 50)

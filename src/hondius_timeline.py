@@ -27,7 +27,7 @@ def main():
         ax.axvline(date, color='gray', linestyle='--', alpha=0.5, zorder=1)
         ax.plot(date, 3, 'v', color='black', markersize=10, zorder=3)
         ax.text(date, 3.2 + (y_pos*0.5), label, rotation=0, ha='center', va='bottom', 
-                fontsize=11, fontweight='bold', bbox=dict(facecolor='white', alpha=0.8, edgecolor='none'))
+                fontsize=14, fontweight='bold', bbox=dict(facecolor='white', alpha=0.8, edgecolor='none'))
 
     # 3. Model the epidemiological dynamics based on the data
     
@@ -87,15 +87,15 @@ def main():
         Line2D([0], [0], marker='X', color='w', markerfacecolor='darkred', markersize=12),
         patches.Rectangle((0,0),1,1, facecolor='khaki', edgecolor='olive', hatch='//')
     ]
-    ax.legend(custom_lines, ['Silent Incubation Period', 'Presymptomatic Viral Shedding', 'Symptom Onset', 'Date of Death', 'Transmission Exposure Event', 'Required 45-Day Observation Window'], loc='lower left', fontsize=11, bbox_to_anchor=(0, -0.2), ncol=3)
+    ax.legend(custom_lines, ['Silent Incubation Period', 'Presymptomatic Viral Shedding', 'Symptom Onset', 'Date of Death', 'Transmission Exposure Event', 'Required 45-Day Observation Window'], loc='lower left', fontsize=14, bbox_to_anchor=(0, -0.2), ncol=3)
 
     # Format X axis
     ax.xaxis.set_major_locator(mdates.DayLocator(interval=7))
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
-    plt.xticks(rotation=45, ha='right', fontsize=12)
+    plt.xticks(rotation=45, ha='right', fontsize=16)
     
     ax.set_yticks([])
-    ax.set_title('Epidemiological Timeline of the MV Hondius Andes Virus Outbreak', fontsize=16, fontweight='bold', pad=20)
+    ax.set_title('Epidemiological Timeline of the MV Hondius Andes Virus Outbreak', fontsize=22, fontweight='bold', pad=20)
     
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)

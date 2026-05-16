@@ -54,7 +54,7 @@ def main():
     crew_patch = mlines.Line2D([], [], color='#e74c3c', marker='o', linestyle='None', markersize=10, label='Crew')
     plt.legend(handles=[passenger_patch, crew_patch], loc='upper right', title="Role")
     
-    plt.title('MV Hondius Andes Virus Transmission Network', fontsize=16, fontweight='bold')
+    plt.title('MV Hondius Andes Virus Transmission Network', fontsize=22, fontweight='bold')
     plt.axis('off')
     plt.tight_layout()
     
@@ -84,8 +84,8 @@ def main():
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
     plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=3))
     plt.title('Patient Exposure Windows and Symptom Onset Timeline', fontsize=14, fontweight='bold')
-    plt.xlabel('Date (2026)', fontsize=12)
-    plt.ylabel('Patient Case ID', fontsize=12)
+    plt.xlabel('Date (2026)', fontsize=16)
+    plt.ylabel('Patient Case ID', fontsize=16)
     plt.yticks(df['case_id'])
     plt.grid(axis='x', linestyle='--', alpha=0.7)
     

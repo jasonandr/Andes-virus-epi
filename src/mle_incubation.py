@@ -73,8 +73,8 @@ def main():
         plt.hlines(y=0.005 + (idx * 0.002), xmin=row['E_L'], xmax=row['E_R'], color='gray', alpha=0.5, linewidth=2)
         
     plt.title('Interval-Censored MLE of Incubation Period (Lauer et al. methodology)', fontsize=14, fontweight='bold')
-    plt.xlabel('Incubation Period (Days)', fontsize=12)
-    plt.ylabel('Probability Density', fontsize=12)
+    plt.xlabel('Incubation Period (Days)', fontsize=16)
+    plt.ylabel('Probability Density', fontsize=16)
     plt.legend()
     plt.grid(alpha=0.3)
     plt.tight_layout()

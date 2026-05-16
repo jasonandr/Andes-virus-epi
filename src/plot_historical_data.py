@@ -18,8 +18,8 @@ def main():
     # Plot epi curve colored by generation
     sns.histplot(data=df, x='date_of_onset', hue='generation', multiple='stack', palette='viridis', bins=15)
     plt.title('Historical Data: 2018-2019 Epuyén Outbreak Epi Curve (Simulated from Literature)', fontsize=14, fontweight='bold')
-    plt.xlabel('Date of Onset', fontsize=12)
-    plt.ylabel('Number of Cases', fontsize=12)
+    plt.xlabel('Date of Onset', fontsize=16)
+    plt.ylabel('Number of Cases', fontsize=16)
     plt.xticks(rotation=45)
     plt.tight_layout()
     

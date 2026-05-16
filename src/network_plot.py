@@ -66,10 +66,10 @@ def main():
     nx.draw_networkx_nodes(G_homo, pos_homo, ax=axes[0], node_color=node_colors_homo, node_size=node_sizes_homo, edgecolors='white', linewidths=1.5)
     nx.draw_networkx_edges(G_homo, pos_homo, ax=axes[0], edge_color='gray', arrows=True, arrowsize=15, alpha=0.7)
     
-    axes[0].set_title("Homogenous Spread (Poisson)\n" + r"$R_0 \approx 1.0, k \rightarrow \infty$", fontsize=16, fontweight='bold', pad=15)
+    axes[0].set_title("Homogenous Spread (Poisson)\n" + r"$R_0 \approx 1.0, k \rightarrow \infty$", fontsize=22, fontweight='bold', pad=15)
     axes[0].axis('off')
     axes[0].text(0.5, -0.05, "Long, linear transmission chains.\nContact tracing focuses on individual links.", 
-                 ha='center', va='center', transform=axes[0].transAxes, fontsize=13, style='italic')
+                 ha='center', va='center', transform=axes[0].transAxes, fontsize=17, style='italic')
 
     # 2. Superspreader
     G_super = create_superspreader_network(22)
@@ -82,10 +82,10 @@ def main():
     nx.draw_networkx_nodes(G_super, pos_super, ax=axes[1], node_color=node_colors_super, node_size=node_sizes_super, edgecolors='white', linewidths=2)
     nx.draw_networkx_edges(G_super, pos_super, ax=axes[1], edge_color='gray', arrows=True, arrowsize=15, alpha=0.7)
     
-    axes[1].set_title("Superspreading Event (Negative Binomial)\n" + r"$R_0 \approx 1.0, k = 0.23$", fontsize=16, fontweight='bold', pad=15)
+    axes[1].set_title("Superspreading Event (Negative Binomial)\n" + r"$R_0 \approx 1.0, k = 0.23$", fontsize=22, fontweight='bold', pad=15)
     axes[1].axis('off')
     axes[1].text(0.5, -0.05, "Massive 'Hub-and-Spoke' clusters.\nContact tracing must identify the central event.", 
-                 ha='center', va='center', transform=axes[1].transAxes, fontsize=13, style='italic')
+                 ha='center', va='center', transform=axes[1].transAxes, fontsize=17, style='italic')
                  
     plt.tight_layout()
     

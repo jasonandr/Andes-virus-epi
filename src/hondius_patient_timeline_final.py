@@ -88,16 +88,16 @@ def main():
         ax.axvline(date, color='steelblue', linestyle='--', alpha=0.6, zorder=0)
         y_text_pos = -1.5 if i % 2 == 0 else -2.5
         ax.text(date, y_text_pos, label, rotation=0, ha='center', va='top', 
-                fontsize=11, fontweight='bold', color='steelblue', 
+                fontsize=14, fontweight='bold', color='steelblue', 
                 bbox=dict(facecolor='white', alpha=0.9, edgecolor='none', pad=2))
 
     # Formatting
     ax.set_yticks(y_pos)
-    ax.set_yticklabels(patients, fontsize=11)
+    ax.set_yticklabels(patients, fontsize=14)
     
     ax.xaxis.set_major_locator(mdates.DayLocator(interval=5))
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
-    plt.xticks(rotation=0, ha='center', fontsize=11)
+    plt.xticks(rotation=0, ha='center', fontsize=14)
     
     ax.invert_yaxis()
     ax.set_xlim(datetime(2026, 3, 26), datetime(2026, 5, 20))
@@ -107,7 +107,7 @@ def main():
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
     
-    ax.set_title("", fontsize=16, fontweight='bold', pad=15)
+    ax.set_title("", fontsize=22, fontweight='bold', pad=15)
     
     # Custom Legend
     from matplotlib.lines import Line2D
@@ -120,7 +120,7 @@ def main():
         Line2D([0], [0], marker='o', color='w', markerfacecolor='steelblue', markersize=8)
     ]
     ax.legend(custom_lines, ['Symptom Onset', 'Critically Ill (Medevac)', 'Date of Death', 'Tested Asymptomatic', 'Inconclusive Test', 'Case Confirmed / Reported'], 
-              loc='lower left', bbox_to_anchor=(0.0, -0.15), ncol=3, fontsize=11)
+              loc='lower left', bbox_to_anchor=(0.0, -0.15), ncol=3, fontsize=14)
               
     plt.tight_layout()
     

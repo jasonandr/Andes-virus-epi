@@ -51,8 +51,8 @@ def main():
                 color='orange', alpha=0.1, ymin=0.1, ymax=0.2, label='Extracted Serial Interval Range (19-40)')
 
     plt.title('A. Foundational Parameter Distributions', fontsize=14, fontweight='bold')
-    plt.xlabel('Days', fontsize=12)
-    plt.ylabel('Probability Density', fontsize=12)
+    plt.xlabel('Days', fontsize=16)
+    plt.ylabel('Probability Density', fontsize=16)
     plt.legend(loc='upper right')
     plt.grid(alpha=0.4)
     plt.tight_layout()
