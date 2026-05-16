@@ -1,0 +1,11 @@
+{
+  "n_iter": 50000,
+  "R0": 0.9318181756252208,
+  "k": 0.2768235293477548,
+  "prob_extinction_immediate": 0.6645,
+  "mean_size": 13.89842,
+  "median_size": 1.0,
+  "max_size": 5149,
+  "p_size_geq_100": 0.02344,
+  "p_hit_cap": 4e-05
+}
